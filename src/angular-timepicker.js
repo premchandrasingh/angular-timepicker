@@ -49,7 +49,7 @@
                 }
             };
         })
-        .directive('dnTimepicker', ['$compile', '$parse', '$position', '$document', 'dateFilter', '$dateParser', 'dnTimepickerHelpers', '$log',
+        .directive('dnTimepicker', ['$compile', '$parse', '$uibPosition', '$document', 'dateFilter', '$dateParser', 'dnTimepickerHelpers', '$log',
             function ($compile, $parse, $position, $document, dateFilter, $dateParser, dnTimepickerHelpers, $log) {
                 return {
                     restrict: 'A',
