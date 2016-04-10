@@ -1,5 +1,5 @@
 /*!
- * angular-timepicker 1.0.9
+ * angular-timepicker 1.0.10
  * https://github.com/Geta/angular-timepicker
  * Copyright 2016, Geta AS
  * Contributors: Dzulqarnain Nasir <dzul@geta.no>
@@ -179,6 +179,8 @@
                 // Set up the element
                 element.bind("focus", function() {
                     scope.openPopup();
+                }).bind("blur", function() {
+                    scope.closePopup();
                 }).bind("keypress keyup", function(e) {
                     if (e.which === 38 && scope.timepicker.activeIdx > 0) {
                         // UP
