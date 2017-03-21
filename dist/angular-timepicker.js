@@ -1,7 +1,7 @@
 /*!
- * angular-timepicker 1.0.10
+ * angular-timepicker 1.0.11
  * https://github.com/Geta/angular-timepicker
- * Copyright 2016, Geta AS
+ * Copyright 2017, Geta AS
  * Contributors: Dzulqarnain Nasir <dzul@geta.no>
  * Licensed under: MIT (http://www.opensource.org/licenses/MIT)
  */
@@ -149,7 +149,7 @@
                 scope.scrollToSelected = function() {
                     if (scope.timepicker.element && scope.timepicker.activeIdx > -1) {
                         var target = scope.timepicker.element[0].querySelector(".active");
-                        target.parentNode.scrollTop = target.offsetTop - 50;
+                        if (target && target.parentNode) target.parentNode.scrollTop = target.offsetTop - 50;
                     }
                 };
                 // Opens the timepicker
@@ -180,7 +180,9 @@
                 element.bind("focus", function() {
                     scope.openPopup();
                 }).bind("blur", function() {
-                    scope.closePopup();
+                    setTimeout(function() {
+                        scope.closePopup();
+                    }, 700);
                 }).bind("keypress keyup", function(e) {
                     if (e.which === 38 && scope.timepicker.activeIdx > 0) {
                         // UP
