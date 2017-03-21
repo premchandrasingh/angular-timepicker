@@ -156,12 +156,26 @@
 
                             if (isNaN(date)) {
                                 ctrl.$setValidity('time', false);
+                                scope.setActive(-1);
                                 return undefined;
                             }
 
                             ctrl.$setValidity('time', true);
+                            var updatedDate = getUpdatedDate(date);
 
-                            return getUpdatedDate(date);
+                            // Set selected if entered value matched any
+                            var liElements = scope.timepicker.element.children();
+                            for (var idx = 0; idx < list.length - 1; idx++) {
+                                var item = list[idx];
+                                if (item.getHours() == updatedDate.getHours() && item.getMinutes() == updatedDate.getMinutes()) {
+                                    scope.setActive(idx);
+                                    angular.element(liElements[idx]).addClass('active');
+                                    scope.scrollToSelected();
+                                    break;
+                                }
+                            }
+
+                            return updatedDate;
                         });
 
                         // Set up methods
@@ -197,6 +211,8 @@
 
                         // Opens the timepicker
                         scope.openPopup = function () {
+                            if (blurCloseRef)
+                                clearTimeout(blurCloseRef);
                             // Set position
                             scope.position = $position.position(element);
                             scope.position.top = scope.position.top + element.prop('offsetHeight');
@@ -208,7 +224,7 @@
                             scope.timepicker.activeIdx = dnTimepickerHelpers.getClosestIndex(scope.ngModel, scope.timepicker.optionList());
 
                             // Make popup width equal to input element
-                            element.next('ul.dn-timepicker-popup').prop('style', 'width:' + element.prop("offsetWidth") + 'px;');
+                            scope.timepicker.element.prop('style', 'width:' + element.prop("offsetWidth") + 'px;');
 
                             // Trigger digest
                             scope.$digest();
@@ -235,7 +251,7 @@
                                 scope.openPopup();
                             })
                             .bind("blur", function () {
-                                setTimeout(function () {
+                                blurCloseRef = setTimeout(function () {
                                     scope.closePopup();
                                 }, 700);
                             })
