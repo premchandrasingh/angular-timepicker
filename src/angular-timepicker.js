@@ -232,7 +232,9 @@
                                 scope.openPopup();
                             })
                             .bind("blur", function () {
-                                scope.closePopup();
+                                setTimeout(function () {
+                                    scope.closePopup();
+                                }, 700);
                             })
                             .bind('keypress keyup', function (e) {
                                 if (e.which === 38 && scope.timepicker.activeIdx > 0) { // UP
