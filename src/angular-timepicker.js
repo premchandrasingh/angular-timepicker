@@ -190,7 +190,8 @@
                         scope.scrollToSelected = function () {
                             if (scope.timepicker.element && scope.timepicker.activeIdx > -1) {
                                 var target = scope.timepicker.element[0].querySelector('.active');
-                                target.parentNode.scrollTop = target.offsetTop - 50;
+                                if (target && target.parentNode)
+                                    target.parentNode.scrollTop = target.offsetTop - 50;
                             }
                         };
 
@@ -230,7 +231,7 @@
                             .bind('focus', function () {
                                 scope.openPopup();
                             })
-                            .bind("blur", function() {
+                            .bind("blur", function () {
                                 scope.closePopup();
                             })
                             .bind('keypress keyup', function (e) {
@@ -258,7 +259,7 @@
                         setCurrentValue(scope.ngModel);
                     }
                 };
-        }])
+            }])
         .directive('dnTimepickerPopup', function () {
             return {
                 restrict: 'A',
