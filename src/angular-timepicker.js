@@ -207,6 +207,9 @@
                             // Set active item
                             scope.timepicker.activeIdx = dnTimepickerHelpers.getClosestIndex(scope.ngModel, scope.timepicker.optionList());
 
+                            // Make popup width equal to input element
+                            element.next('ul.dn-timepicker-popup').prop('style', 'width:' + element.prop("offsetWidth") + 'px;');
+
                             // Trigger digest
                             scope.$digest();
 
@@ -236,7 +239,7 @@
                                     scope.closePopup();
                                 }, 700);
                             })
-                            .bind('keypress keyup', function (e) {
+                            .bind('keydown', function (e) {
                                 if (e.which === 38 && scope.timepicker.activeIdx > 0) { // UP
                                     scope.timepicker.activeIdx--;
                                     scope.scrollToSelected();
